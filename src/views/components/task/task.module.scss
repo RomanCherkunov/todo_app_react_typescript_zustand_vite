@@ -1,0 +1,85 @@
+.task {
+    display: grid;
+    grid-template-columns: 30px 1fr 50px 50px;
+    margin-bottom: 15px;
+    background: #dbe2ef;
+    border-radius: 5px;
+    gap: 10px;
+
+    &Checked {
+        display: grid;
+        grid-template-columns: 30px 1fr 50px 50px;
+        margin-bottom: 15px;
+        background: #dbefde;
+        border-radius: 5px;
+        gap: 10px;
+
+        h3 {
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    h3 {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+    
+    &Label {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        padding: 12px 15px;
+    }
+
+    &CheckBox {
+        width: 15px;
+        height: 15px;
+        cursor: pointer;
+    }
+
+    &Title {
+        padding: 5px;
+        line-height: 1.2;
+    }
+
+    &Edit, &Remove, &Save {
+        display: block;
+        border: none;
+        background: none no-repeat center center;
+        cursor: pointer;
+        transition: transform 0.2s;
+
+        &:hover {
+            transform: scale(1.2);
+        }
+    }
+
+    &Editable {
+        box-shadow: inset 0 0 20px rgba(137, 191, 214, 0.5);
+        border: none;
+        border-radius: 10px;
+        padding: 5px;
+        font: 1rem/1.4 'Roboto' 'sans-serif';
+        color: rgba(0,0,0, 0.7);
+        font-size: 1rem;
+        background: #dbe2ef;
+        outline: none;
+        transition: all 0.2s ease;
+    }
+        
+
+    &Edit {
+        background-image: url('./images/edit.svg');
+    }
+
+    &Remove {
+        background-image: url('./images/trash.svg');
+    }
+
+    &Save {
+        background-image: url('./images/check.svg');
+        background-size: contain;
+    }
+}

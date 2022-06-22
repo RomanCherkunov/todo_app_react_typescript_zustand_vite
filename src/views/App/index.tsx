@@ -21,7 +21,6 @@ export const App: React.FC = () => {
         console.log(1111111111)
     }
 
-    console.log(tasks)
     return (
         <article className={styles.article}>
             <h1 className={styles.articleTitle}>To Do App</h1>
@@ -36,6 +35,7 @@ export const App: React.FC = () => {
                 {!tasks.length && <p className={styles.articleText}>You dont have tasks</p>}
                 {tasks.map((task) => {
                    return <Task
+                            key={task.id}
                             id={task.id}
                             title={task.title}
                             onDone={removeTask}

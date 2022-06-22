@@ -17,7 +17,9 @@ interface ToDoStore {
 
 export const useToDoStore = create<ToDoStore>((set, get) => ({
     tasks: [
-        {id:'sfsf', title: 'default task', createdAt: 211221}
+        {id:'1', title: 'default task 1', createdAt: 211221},
+        {id:'2', title: 'default task 2', createdAt: 211222},
+        {id:'3', title: 'default task 3', createdAt: 211223},
     ],
     createTask: (title) => {
         const {tasks} = get()
