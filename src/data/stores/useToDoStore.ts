@@ -1,4 +1,4 @@
-import create from "zustand";
+import create, {State, StateCreator} from "zustand";
 
 import {generateId} from '../heplers'
 
@@ -15,12 +15,35 @@ interface ToDoStore {
     removeTask: (id: string) => void
 }
 
-export const useToDoStore = create<ToDoStore>((set, get) => ({
-    tasks: [
-        {id:'1', title: 'default task 1', createdAt: 211221},
-        {id:'2', title: 'default task 2', createdAt: 211222},
-        {id:'3', title: 'default task 3', createdAt: 211223},
-    ],
+function isTodoStore(obj: any): obj is ToDoStore {
+    return 'tasks' in obj
+}
+
+const localStorageUpdate = <T extends State>(config: StateCreator<T>): StateCreator<T> => (set, get, api) => config((nextState, ...args) => {
+    if(isTodoStore(nextState)) {
+        window.localStorage.setItem('tasks', JSON.stringify(
+            nextState.tasks
+        ))
+    }
+    set(nextState, ...args)
+}, get, api)
+
+
+const getCurrentState = () => {
+    try {
+        const currentState = (JSON.parse(window.localStorage.getItem('tasks' || '[]')))
+        return currentState
+    } catch (error) {
+        console.log(error)
+        window.localStorage.setItem('tasks', '[]')
+    }
+    return []
+}
+const currentState = (JSON.parse(window.localStorage.getItem('tasks' || '[]')))
+
+
+export const useToDoStore = create<ToDoStore>(localStorageUpdate((set, get) => ({
+    tasks: getCurrentState(),
     createTask: (title) => {
         const {tasks} = get()
         const newTask = {
@@ -48,4 +71,4 @@ export const useToDoStore = create<ToDoStore>((set, get) => ({
             tasks: tasks.filter(task => task.id !== id )
         })
     }
-}))
+})))
